@@ -1,0 +1,170 @@
+🔥 FEATURE 1: Impact-Based Explanation Engine
+
+👉 Makes every issue meaningful
+
+Upgrade my issue analysis system.
+
+For every detected issue, return:
+
+Issue name
+Why it is a problem
+Impact on ATS score or recruiter decision
+Exact fix
+Example improvement
+
+Ensure output is structured and professional, not generic.
+
+🔥 FEATURE 2: Resume Impact Score (NEW METRIC)
+
+👉 This is missing in your app (big loss)
+
+Add a new "Impact Score".
+
+Calculate based on:
+
+Number of quantified achievements
+Presence of strong action verbs
+Outcome-based statements
+
+Return:
+
+Impact Score (0–100)
+Weak vs strong bullets
+Suggestions to improve impact
+🔥 FEATURE 3: Recruiter Decision Engine (VERY IMPORTANT)
+
+👉 This makes your app feel real
+
+Add a Recruiter Simulation module.
+
+Output:
+
+Final verdict: Reject / Borderline / Shortlist
+Decision time (e.g., 6–10 seconds)
+
+Explain:
+
+Why recruiter rejects or selects
+Which section influenced decision most
+
+Tone should feel like real recruiter feedback.
+
+🔥 FEATURE 4: Tailoring Intelligence (CURRENTLY WEAK)
+
+👉 Your 40% tailoring score is useless without explanation
+
+Improve Tailoring Analysis.
+
+When job description is not provided:
+
+Suggest default roles (Frontend, Backend, AI Engineer)
+
+When provided:
+
+Extract keywords
+Compare with resume
+
+Return:
+
+Match %
+Missing keywords
+Suggested additions
+Resume alignment insights
+🔥 FEATURE 5: AI Resume Rewriter (CRITICAL)
+
+👉 Your app mentions it but doesn’t fully deliver
+
+Build a Resume Rewrite Engine using Gemini API.
+
+Features:
+
+Rewrite weak bullet points
+Generate strong professional summary
+Improve wording with metrics and impact
+
+Return:
+
+Original text
+Improved version
+Explanation of changes
+🔥 FEATURE 6: Visual Score Explanation (UX UPGRADE)
+
+👉 Currently missing clarity
+
+Enhance score visualization.
+
+For each score (Content, ATS, Sections, Tailoring):
+
+Show breakdown
+Explain what contributed to score
+Show how to improve it
+
+Add tooltips and visual indicators (red/yellow/green).
+
+🔥 FEATURE 7: Missing Section Intelligence (SMART VERSION)
+
+👉 Current is basic
+
+Upgrade missing section detection.
+
+Instead of just listing missing sections:
+
+Explain why each section is important
+Show example content
+Suggest how to write it
+
+Example:
+"Experience section improves recruiter trust and ATS ranking."
+
+🔥 FEATURE 8: Action Plan Generator (GAME CHANGER)
+
+👉 This makes your app actionable
+
+Generate a personalized improvement roadmap.
+
+Output:
+Step 1: Add Experience section
+Step 2: Add metrics in projects
+Step 3: Fix links
+
+Each step must include:
+
+What to do
+Why it matters
+Expected score improvement
+🔥 FEATURE 9: Confidence Score (VERY PROFESSIONAL)
+
+👉 Adds credibility
+
+Add a Confidence Score.
+
+Indicates reliability of analysis based on:
+
+Parse quality
+Data completeness
+AI certainty
+
+Return:
+
+Confidence % (e.g., 92%)
+🔥 FEATURE 10: Smart Alerts (UX DETAIL)
+
+👉 Small but powerful
+
+Add Smart Alerts system.
+
+Highlight:
+
+Critical issues in red
+Medium in yellow
+Low in green
+
+Show severity badges and prioritize fixes.
+
+🧠 4. UI CHANGES REQUIRED
+Add:
+Score circle (big)
+Issue cards with severity
+Expandable explanations
+“Fix this” buttons
+AI rewrite preview

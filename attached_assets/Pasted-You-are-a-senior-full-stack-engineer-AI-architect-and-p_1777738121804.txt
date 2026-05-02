@@ -1,0 +1,326 @@
+You are a senior full-stack engineer, AI architect, and product designer.
+
+Your task is to build a COMPLETE, production-grade web application called:
+
+"AI Resume Analyzer & ATS Intelligence Platform"
+
+This system must replicate and surpass tools like Enhancv Resume Checker by generating a highly detailed, structured, and explainable resume analysis report.
+
+---
+
+# 🎯 CORE REQUIREMENT
+
+The app MUST generate a detailed report exactly like this structure:
+
+* Overall Score (0–100)
+* Category Scores:
+
+  * Content Score
+  * Sections Score
+  * ATS Score
+  * Tailoring Score
+* ATS Parse Rate (%)
+* Issues (with severity levels)
+* Suggestions (actionable improvements)
+* Missing Sections
+* Bullet Strength Analysis
+* Metrics Detection
+* Keyword Matching
+* AI-generated improvements
+
+---
+
+# ⚙️ TECH STACK (STRICT)
+
+Frontend:
+
+* React (Vite)
+* Tailwind CSS
+* Framer Motion
+* Recharts
+
+Backend:
+
+* Python Flask (MANDATORY)
+
+Database:
+
+* PostgreSQL
+
+AI:
+
+* Gemini Pro API
+
+Deployment:
+
+* Fully runnable inside Replit (single project)
+
+---
+
+# 🧠 SYSTEM ARCHITECTURE
+
+Build system using modular engines:
+
+1. Resume Parser Engine
+2. Section Detection Engine
+3. Content Analysis Engine
+4. ATS Simulation Engine
+5. Scoring Engine
+6. AI Enhancement Engine
+7. Job Matching Engine
+8. History Tracking Engine
+
+---
+
+# 📂 FEATURE IMPLEMENTATION
+
+## 1. Resume Upload
+
+* Accept PDF and DOCX
+* Validate file type and size
+* Store temporarily
+
+---
+
+## 2. Resume Parsing Engine
+
+Extract structured fields:
+
+* Name
+* Email
+* Phone
+* Skills
+* Projects
+* Education
+* Experience
+
+Use:
+
+* pdfplumber
+* docx2txt
+
+---
+
+## 3. Section Detection Engine
+
+Detect presence of:
+
+* Summary
+* Education
+* Experience
+* Skills
+* Projects
+
+Return missing sections.
+
+---
+
+## 4. Content Analysis Engine
+
+Perform:
+
+### Bullet Strength Analysis
+
+* Detect weak verbs (developed, worked on)
+* Check for impact statements
+
+### Metrics Detection
+
+* Count numbers (% / counts)
+* If < 2 → weak content
+
+### Repetition Detection
+
+* Detect repeated words
+
+### Grammar Check (basic or via AI)
+
+---
+
+## 5. ATS Simulation Engine
+
+Simulate ATS behavior:
+
+* Parsing success rate (% based on extracted text quality)
+* Link validation (LinkedIn, GitHub)
+* Email validation
+* Formatting issues
+
+Return:
+
+* ATS Score (0–100)
+* Parse Rate (%)
+
+---
+
+## 6. Scoring Engine
+
+Calculate:
+
+content_score = function(metrics, grammar, bullets)
+section_score = function(section_presence)
+ats_score = function(parse_rate, formatting)
+tailoring_score = function(keyword_match)
+
+final_score = weighted combination
+
+---
+
+## 7. Job Description Matching Engine
+
+* Accept job description input
+* Extract keywords
+* Compare with resume text
+
+Return:
+
+* Match %
+* Missing keywords
+* Suggested skills
+
+---
+
+## 8. AI Enhancement Engine (Gemini API)
+
+Use Gemini API to:
+
+* Rewrite weak bullet points
+* Suggest quantified achievements
+* Improve summary
+* Detect missing skills
+
+Prompt must be structured and return JSON output.
+
+---
+
+## 9. History Tracking
+
+Store:
+
+* Resume
+* Scores
+* Analysis results
+
+Display:
+
+* Score trend graph
+* Improvements over time
+
+---
+
+# 🗄️ DATABASE SCHEMA
+
+users(id, email, password)
+
+resumes(id, user_id, file_path, created_at)
+
+analysis_results(
+id,
+resume_id,
+overall_score,
+content_score,
+section_score,
+ats_score,
+tailoring_score,
+parse_rate,
+issues_json,
+suggestions_json
+)
+
+job_descriptions(id, user_id, text)
+
+history(id, resume_id, score, created_at)
+
+---
+
+# 🔌 API ENDPOINTS
+
+POST /upload-resume
+POST /analyze
+POST /match-job
+GET /report
+GET /history
+
+---
+
+# 📊 REQUIRED OUTPUT FORMAT (STRICT)
+
+Return JSON like:
+
+{
+"overall_score": 62,
+"content_score": 59,
+"section_score": 86,
+"ats_score": 50,
+"tailoring_score": 40,
+"parse_rate": 82,
+"issues": [
+{"type": "missing_section", "message": "No Experience section", "severity": "high"},
+{"type": "weak_bullets", "message": "Bullet points lack impact", "severity": "medium"}
+],
+"suggestions": [
+"Add quantified achievements",
+"Improve formatting",
+"Fix email"
+],
+"missing_sections": ["experience"],
+"metrics_count": 1
+}
+
+---
+
+# 🎨 FRONTEND UI REQUIREMENTS
+
+Build a professional dashboard:
+
+* Circular score meter
+* Category cards (Content, ATS, Sections, Tailoring)
+* Issue list with severity badges
+* Suggestions list
+* Missing sections highlight
+* Graphs using Recharts
+* Smooth animations
+
+---
+
+# 🧪 TEST CASES
+
+* Resume without Experience → flag error
+* Resume without numbers → suggest metrics
+* Broken links → ATS penalty
+* Weak bullets → content penalty
+
+---
+
+# 🚀 ADVANCED FEATURES (MANDATORY FOR HIGH QUALITY)
+
+* One-click "Improve Resume" (AI rewrite)
+* Recruiter simulation ("Rejected in 6 sec")
+* Multi-resume comparison
+* Downloadable PDF report
+
+---
+
+# ⚠️ RULES
+
+* Code must be modular and production-ready
+* Use clean architecture
+* Provide full folder structure
+* Add comments
+* Ensure everything runs in Replit
+* Avoid placeholder logic—implement real checks
+
+---
+
+# 📦 OUTPUT REQUIRED
+
+1. Full backend code (Flask)
+2. Full frontend code (React)
+3. Database schema SQL
+4. API integration
+5. Gemini API integration
+6. Setup instructions
+
+---
+
+Build this as a real SaaS-level product, not a demo.

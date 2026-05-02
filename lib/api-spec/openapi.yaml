@@ -1,0 +1,1313 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: AI Resume Analyzer API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: resume
+    description: Resume upload and analysis
+  - name: history
+    description: Analysis history
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /resume/upload:
+    post:
+      operationId: uploadResume
+      tags: [resume]
+      summary: Upload a resume file (PDF or DOCX)
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+                - file
+      responses:
+        "200":
+          description: Upload successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadResponse"
+        "400":
+          description: Invalid file
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/analyze:
+    post:
+      operationId: analyzeResume
+      tags: [resume]
+      summary: Analyze an uploaded resume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeRequest"
+      responses:
+        "200":
+          description: Analysis complete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/match-job:
+    post:
+      operationId: matchJob
+      tags: [resume]
+      summary: Match resume against a job description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobMatchRequest"
+      responses:
+        "200":
+          description: Match result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobMatchResult"
+
+  /resume/improve:
+    post:
+      operationId: improveResume
+      tags: [resume]
+      summary: AI-powered resume improvement suggestions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImproveRequest"
+      responses:
+        "200":
+          description: Improvement suggestions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImprovementResult"
+
+  /resume/role-analyze:
+    post:
+      operationId: roleAnalyze
+      tags: [resume]
+      summary: Analyze resume fit for a specific job role using AI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleAnalyzeRequest"
+      responses:
+        "200":
+          description: Role analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleAnalyzeResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/recruiter-sim:
+    post:
+      operationId: recruiterSim
+      tags: [resume]
+      summary: Simulate a 6-second recruiter scan of the resume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecruiterSimRequest"
+      responses:
+        "200":
+          description: Recruiter simulation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecruiterSimResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/benchmark:
+    post:
+      operationId: benchmarkResume
+      tags: [resume]
+      summary: Benchmark resume against top industry candidates using AI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BenchmarkRequest"
+      responses:
+        "200":
+          description: Benchmark result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BenchmarkResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/improve-bullets:
+    post:
+      operationId: improveBullets
+      tags: [resume]
+      summary: AI-powered bullet point rewriter using Action+Technology+Impact+Metrics formula
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImproveBulletsRequest"
+      responses:
+        "200":
+          description: Improved bullets
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImproveBulletsResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/action-plan:
+    post:
+      operationId: generateActionPlan
+      tags: [resume]
+      summary: Generate a personalized AI-powered improvement roadmap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActionPlanRequest"
+      responses:
+        "200":
+          description: Personalized action plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActionPlanResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/red-flags:
+    post:
+      operationId: scanRedFlags
+      tags: [resume]
+      summary: Scan resume for red flags that cause immediate disqualification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeIdRequest"
+      responses:
+        "200":
+          description: Red flag scan complete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RedFlagsResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/padding-detector:
+    post:
+      operationId: detectPadding
+      tags: [resume]
+      summary: Score each bullet as genuine achievement vs filler padding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeIdRequest"
+      responses:
+        "200":
+          description: Padding detection complete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaddingDetectorResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/career-trajectory:
+    post:
+      operationId: predictCareerTrajectory
+      tags: [resume]
+      summary: Predict realistic 1/3/5-year career trajectories with skill gap analysis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeIdRequest"
+      responses:
+        "200":
+          description: Career trajectory prediction complete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareerTrajectoryResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /resume/report/{analysisId}:
+    get:
+      operationId: getReport
+      tags: [resume]
+      summary: Get a full analysis report
+      parameters:
+        - name: analysisId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Analysis report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /history:
+    get:
+      operationId: getHistory
+      tags: [history]
+      summary: Get analysis history
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: History list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HistoryEntry"
+
+  /history/stats:
+    get:
+      operationId: getHistoryStats
+      tags: [history]
+      summary: Get aggregated history statistics for score trends
+      responses:
+        "200":
+          description: History statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HistoryStats"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    UploadResponse:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+        filename:
+          type: string
+        message:
+          type: string
+      required:
+        - resumeId
+        - filename
+        - message
+
+    AnalyzeRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+        jobDescription:
+          type: string
+      required:
+        - resumeId
+
+    JobMatchRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+        jobDescription:
+          type: string
+      required:
+        - resumeId
+        - jobDescription
+
+    ImproveRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+        analysisId:
+          type: integer
+      required:
+        - resumeId
+        - analysisId
+
+    RoleAnalyzeRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+        jobTitle:
+          type: string
+      required:
+        - resumeId
+        - jobTitle
+
+    RecruiterSimRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+      required:
+        - resumeId
+
+    BenchmarkRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+        jobTitle:
+          type: string
+      required:
+        - resumeId
+
+    ImproveBulletsRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+      required:
+        - resumeId
+
+    Issue:
+      type: object
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        severity:
+          type: string
+          enum: [high, medium, low]
+      required:
+        - type
+        - message
+        - severity
+
+    ParsedSection:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        skills:
+          type: array
+          items:
+            type: string
+        experience:
+          type: array
+          items:
+            type: string
+        education:
+          type: array
+          items:
+            type: string
+        projects:
+          type: array
+          items:
+            type: string
+        summary:
+          type: string
+
+    MissingSectionDetail:
+      type: object
+      properties:
+        section:
+          type: string
+        importance:
+          type: string
+          enum: [critical, important, recommended]
+        why:
+          type: string
+        example:
+          type: string
+        scoreImpact:
+          type: string
+      required:
+        - section
+        - importance
+        - why
+        - example
+        - scoreImpact
+
+    ActionPlanStep:
+      type: object
+      properties:
+        step:
+          type: integer
+        priority:
+          type: string
+          enum: [critical, high, medium]
+        action:
+          type: string
+        what:
+          type: string
+        why:
+          type: string
+        expectedScoreGain:
+          type: integer
+        effort:
+          type: string
+      required:
+        - step
+        - priority
+        - action
+        - what
+        - why
+        - expectedScoreGain
+        - effort
+
+    ActionPlanRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+      required:
+        - resumeId
+
+    ActionPlanResult:
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionPlanStep"
+        resumeScore:
+          type: integer
+        impactScore:
+          type: integer
+      required:
+        - steps
+        - resumeScore
+        - impactScore
+
+    AnalysisResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        resumeId:
+          type: integer
+        overallScore:
+          type: integer
+        contentScore:
+          type: integer
+        sectionScore:
+          type: integer
+        atsScore:
+          type: integer
+        tailoringScore:
+          type: integer
+        parseRate:
+          type: integer
+        impactScore:
+          type: integer
+        confidenceScore:
+          type: integer
+        issues:
+          type: array
+          items:
+            $ref: "#/components/schemas/Issue"
+        suggestions:
+          type: array
+          items:
+            type: string
+        missingSections:
+          type: array
+          items:
+            type: string
+        missingSectionsDetail:
+          type: array
+          items:
+            $ref: "#/components/schemas/MissingSectionDetail"
+        metricsCount:
+          type: integer
+        weakBullets:
+          type: array
+          items:
+            type: string
+        strongBullets:
+          type: array
+          items:
+            type: string
+        parsedData:
+          $ref: "#/components/schemas/ParsedSection"
+        createdAt:
+          type: string
+      required:
+        - id
+        - resumeId
+        - overallScore
+        - contentScore
+        - sectionScore
+        - atsScore
+        - tailoringScore
+        - parseRate
+        - impactScore
+        - confidenceScore
+        - issues
+        - suggestions
+        - missingSections
+        - missingSectionsDetail
+        - metricsCount
+        - weakBullets
+        - strongBullets
+        - createdAt
+
+    JobMatchResult:
+      type: object
+      properties:
+        matchPercentage:
+          type: integer
+        matchedKeywords:
+          type: array
+          items:
+            type: string
+        missingKeywords:
+          type: array
+          items:
+            type: string
+        suggestedSkills:
+          type: array
+          items:
+            type: string
+      required:
+        - matchPercentage
+        - matchedKeywords
+        - missingKeywords
+        - suggestedSkills
+
+    ImprovementResult:
+      type: object
+      properties:
+        improvedBullets:
+          type: array
+          items:
+            type: object
+            properties:
+              original:
+                type: string
+              improved:
+                type: string
+            required:
+              - original
+              - improved
+        improvedSummary:
+          type: string
+        additionalSuggestions:
+          type: array
+          items:
+            type: string
+      required:
+        - improvedBullets
+        - additionalSuggestions
+
+    RoleSkill:
+      type: object
+      properties:
+        skill:
+          type: string
+        importance:
+          type: string
+        category:
+          type: string
+        present:
+          type: boolean
+      required:
+        - skill
+        - importance
+        - category
+        - present
+
+    MissingSkill:
+      type: object
+      properties:
+        skill:
+          type: string
+        importance:
+          type: string
+        category:
+          type: string
+        whyItMatters:
+          type: string
+      required:
+        - skill
+        - importance
+        - category
+        - whyItMatters
+
+    LearningPathItem:
+      type: object
+      properties:
+        skill:
+          type: string
+        priority:
+          type: integer
+        timeToLearn:
+          type: string
+        resource:
+          type: string
+        reason:
+          type: string
+      required:
+        - skill
+        - priority
+        - timeToLearn
+        - resource
+        - reason
+
+    RoleAnalyzeResult:
+      type: object
+      properties:
+        roleOverview:
+          type: string
+        matchScore:
+          type: integer
+        requiredSkills:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoleSkill"
+        missingSkills:
+          type: array
+          items:
+            $ref: "#/components/schemas/MissingSkill"
+        presentSkills:
+          type: array
+          items:
+            type: string
+        learningPath:
+          type: array
+          items:
+            $ref: "#/components/schemas/LearningPathItem"
+        hiringVerdict:
+          type: string
+        verdictReason:
+          type: string
+      required:
+        - roleOverview
+        - matchScore
+        - requiredSkills
+        - missingSkills
+        - presentSkills
+        - learningPath
+        - hiringVerdict
+        - verdictReason
+
+    AttentionSection:
+      type: object
+      properties:
+        section:
+          type: string
+        attentionLevel:
+          type: string
+        timeSpent:
+          type: string
+        recruiterThought:
+          type: string
+        score:
+          type: integer
+        issues:
+          type: array
+          items:
+            type: string
+        positives:
+          type: array
+          items:
+            type: string
+      required:
+        - section
+        - attentionLevel
+        - timeSpent
+        - recruiterThought
+        - score
+        - issues
+        - positives
+
+    RecruiterSimResult:
+      type: object
+      properties:
+        verdict:
+          type: string
+        verdictLabel:
+          type: string
+        confidenceScore:
+          type: integer
+        firstImpression:
+          type: string
+        sixSecondSummary:
+          type: string
+        attentionMap:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttentionSection"
+        criticalStrengths:
+          type: array
+          items:
+            type: string
+        criticalWeaknesses:
+          type: array
+          items:
+            type: string
+        whatWouldGetThemShortlisted:
+          type: array
+          items:
+            type: string
+        redFlags:
+          type: array
+          items:
+            type: string
+      required:
+        - verdict
+        - verdictLabel
+        - confidenceScore
+        - firstImpression
+        - sixSecondSummary
+        - attentionMap
+        - criticalStrengths
+        - criticalWeaknesses
+        - whatWouldGetThemShortlisted
+        - redFlags
+
+    BenchmarkCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        yourScore:
+          type: integer
+        topCandidateScore:
+          type: integer
+        industryMedian:
+          type: integer
+        gapDescription:
+          type: string
+        impact:
+          type: string
+      required:
+        - name
+        - yourScore
+        - topCandidateScore
+        - industryMedian
+        - gapDescription
+        - impact
+
+    QuickWin:
+      type: object
+      properties:
+        action:
+          type: string
+        effort:
+          type: string
+        impact:
+          type: string
+        estimatedPercentileGain:
+          type: string
+      required:
+        - action
+        - effort
+        - impact
+        - estimatedPercentileGain
+
+    BenchmarkResult:
+      type: object
+      properties:
+        percentileRank:
+          type: integer
+        tier:
+          type: string
+        tierLabel:
+          type: string
+        overallGapSummary:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/BenchmarkCategory"
+        topCandidateProfile:
+          type: string
+        gapsToTop10Percent:
+          type: array
+          items:
+            type: string
+        quickWins:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuickWin"
+        topSkillsMissing:
+          type: array
+          items:
+            type: string
+        whatTop10PercentHaveThatYouDont:
+          type: array
+          items:
+            type: string
+      required:
+        - percentileRank
+        - tier
+        - tierLabel
+        - overallGapSummary
+        - categories
+        - topCandidateProfile
+        - gapsToTop10Percent
+        - quickWins
+        - topSkillsMissing
+        - whatTop10PercentHaveThatYouDont
+
+    BulletImprovement:
+      type: object
+      properties:
+        original:
+          type: string
+        improved:
+          type: string
+        explanation:
+          type: string
+        formulaBreakdown:
+          type: object
+          properties:
+            action:
+              type: string
+            context:
+              type: string
+            impact:
+              type: string
+            metrics:
+              type: string
+          required:
+            - action
+            - context
+            - impact
+            - metrics
+        weaknessIdentified:
+          type: string
+        improvementScore:
+          type: integer
+      required:
+        - original
+        - improved
+        - explanation
+        - formulaBreakdown
+        - weaknessIdentified
+        - improvementScore
+
+    ImproveBulletsResult:
+      type: object
+      properties:
+        improvements:
+          type: array
+          items:
+            $ref: "#/components/schemas/BulletImprovement"
+        overallAdvice:
+          type: string
+      required:
+        - improvements
+        - overallAdvice
+
+    HistoryEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+        resumeId:
+          type: integer
+        filename:
+          type: string
+        overallScore:
+          type: integer
+        contentScore:
+          type: integer
+        atsScore:
+          type: integer
+        sectionScore:
+          type: integer
+        tailoringScore:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - id
+        - resumeId
+        - overallScore
+        - contentScore
+        - atsScore
+        - sectionScore
+        - tailoringScore
+        - createdAt
+
+    HistoryStats:
+      type: object
+      properties:
+        totalAnalyses:
+          type: integer
+        averageScore:
+          type: integer
+        bestScore:
+          type: integer
+        trend:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              score:
+                type: integer
+            required:
+              - date
+              - score
+      required:
+        - totalAnalyses
+        - averageScore
+        - bestScore
+        - trend
+
+    ResumeIdRequest:
+      type: object
+      properties:
+        resumeId:
+          type: integer
+      required:
+        - resumeId
+
+    RedFlag:
+      type: object
+      properties:
+        category:
+          type: string
+        severity:
+          type: string
+          enum: [critical, warning, info]
+        title:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        howToFix:
+          type: string
+      required:
+        - category
+        - severity
+        - title
+        - description
+        - location
+        - howToFix
+
+    RedFlagsResult:
+      type: object
+      properties:
+        overallRisk:
+          type: string
+        riskScore:
+          type: integer
+        summary:
+          type: string
+        flags:
+          type: array
+          items:
+            $ref: "#/components/schemas/RedFlag"
+        buzzwordsFound:
+          type: array
+          items:
+            type: string
+        atsFormatIssues:
+          type: array
+          items:
+            type: string
+        quickFixes:
+          type: array
+          items:
+            type: string
+        disqualificationRisk:
+          type: string
+      required:
+        - overallRisk
+        - riskScore
+        - summary
+        - flags
+        - buzzwordsFound
+        - atsFormatIssues
+        - quickFixes
+        - disqualificationRisk
+
+    BulletAnalysis:
+      type: object
+      properties:
+        text:
+          type: string
+        type:
+          type: string
+          enum: [padding, achievement, mixed]
+        score:
+          type: integer
+        reason:
+          type: string
+        signals:
+          type: array
+          items:
+            type: string
+      required:
+        - text
+        - type
+        - score
+        - reason
+        - signals
+
+    PaddingDetectorResult:
+      type: object
+      properties:
+        overallPaddingRatio:
+          type: integer
+        achievementRatio:
+          type: integer
+        verdict:
+          type: string
+        bullets:
+          type: array
+          items:
+            $ref: "#/components/schemas/BulletAnalysis"
+        paddingCount:
+          type: integer
+        achievementCount:
+          type: integer
+        topAchievements:
+          type: array
+          items:
+            type: string
+        worstPadding:
+          type: array
+          items:
+            type: string
+        overallAdvice:
+          type: string
+      required:
+        - overallPaddingRatio
+        - achievementRatio
+        - verdict
+        - bullets
+        - paddingCount
+        - achievementCount
+        - topAchievements
+        - worstPadding
+        - overallAdvice
+
+    TrajectorySkill:
+      type: object
+      properties:
+        skill:
+          type: string
+        currentlyHas:
+          type: boolean
+        urgency:
+          type: string
+        timeToLearn:
+          type: string
+        whyNeeded:
+          type: string
+      required:
+        - skill
+        - currentlyHas
+        - urgency
+        - timeToLearn
+        - whyNeeded
+
+    CareerMilestone:
+      type: object
+      properties:
+        year:
+          type: integer
+        jobTitles:
+          type: array
+          items:
+            type: string
+        probability:
+          type: integer
+        salaryRange:
+          type: string
+        keyMilestone:
+          type: string
+        requiredSkills:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrajectorySkill"
+        readinessScore:
+          type: integer
+      required:
+        - year
+        - jobTitles
+        - probability
+        - salaryRange
+        - keyMilestone
+        - requiredSkills
+        - readinessScore
+
+    AlternativePathway:
+      type: object
+      properties:
+        path:
+          type: string
+        description:
+          type: string
+        probability:
+          type: integer
+        bridgeSkills:
+          type: array
+          items:
+            type: string
+        timeToTransition:
+          type: string
+      required:
+        - path
+        - description
+        - probability
+        - bridgeSkills
+        - timeToTransition
+
+    CareerTrajectoryResult:
+      type: object
+      properties:
+        currentLevel:
+          type: string
+        currentStrengths:
+          type: array
+          items:
+            type: string
+        trajectories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CareerMilestone"
+        alternativePathways:
+          type: array
+          items:
+            $ref: "#/components/schemas/AlternativePathway"
+        biggestCareerRisk:
+          type: string
+        immediateActions:
+          type: array
+          items:
+            type: string
+      required:
+        - currentLevel
+        - currentStrengths
+        - trajectories
+        - alternativePathways
+        - biggestCareerRisk
+        - immediateActions
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error
+        - message
