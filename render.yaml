@@ -23,7 +23,6 @@ services:
   - type: web
     name: resume-ai-frontend
     env: static
-    region: singapore
     plan: free
     buildCommand: npm install -g pnpm && pnpm install --frozen-lockfile && pnpm --filter @workspace/api-spec run codegen && pnpm --filter @workspace/resume-analyzer run build
     staticPublishPath: ./artifacts/resume-analyzer/dist/public
