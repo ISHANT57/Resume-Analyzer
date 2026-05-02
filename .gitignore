@@ -10,7 +10,11 @@ out-tsc
 .replit
 # dependencies
 node_modules
-
+node_modules/
+uploads/
+attached_assets/
+.env
+.replitignore
 # IDEs and editors
 /.idea
 .project
